@@ -1,0 +1,48 @@
+OpenXML - ASP.NET - how to create Excel document with multiple sheets on fly - Step by step
+Watch this example on YouTube
+
+
+
+
+Here is ready for copy and paste code:
+
+         MemoryStream ms = new MemoryStream();
+            SpreadsheetDocument xl = SpreadsheetDocument.Create(ms, SpreadsheetDocumentType.Workbook);
+            WorkbookPart wbp = xl.AddWorkbookPart();
+            wbp.Workbook = new Workbook();
+            Sheets sheets = xl.WorkbookPart.Workbook.AppendChild<Sheets>(new Sheets());
+
+           //First Sheet
+            WorksheetPart wsp = wbp.AddNewPart<WorksheetPart>();
+            Worksheet ws = new Worksheet();
+            SheetData sd = new SheetData();
+            ws.Append(sd);
+            wsp.Worksheet = ws;
+            wsp.Worksheet.Save();
+            Sheet sheet = new Sheet();
+            sheet.Name = "One";
+            sheet.SheetId = 1;
+            sheet.Id = wbp.GetIdOfPart(wsp);
+            sheets.Append(sheet);
+
+            //Second Sheet
+            WorksheetPart wsp2 = wbp.AddNewPart<WorksheetPart>();
+            Worksheet ws2 = new Worksheet();
+            SheetData sd2 = new SheetData();
+            ws2.AppendChild(sd2);
+            wsp2.Worksheet = ws2;
+            wsp2.Worksheet.Save();
+            Sheet sheet2 = new Sheet();
+            sheet2.Name = "Two";
+            sheet2.SheetId = 2;
+            sheet2.Id = wbp.GetIdOfPart(wsp2);
+            sheets.Append(sheet2);
+
+            xl.Close();
+            Response.Clear();
+            byte[] someData = ms.ToArray();
+            string filename = "myexcel.xlsx";
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+            Response.AddHeader("Content-Dispostion", string.Format("attachment; filename={0}", filename));
+            Response.BinaryWrite(someData);
+            Response.End();

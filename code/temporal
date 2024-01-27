@@ -1,0 +1,83 @@
+/* REINICIAMOS NUMERACION */
+truncate sispromc_erp.erp_detkardex;
+truncate sispromc_erp.erp_detkardex;
+truncate sispromc_erp.erp_kardex;
+truncate sispromc_erp.erp_detdocumento;
+truncate sispromc_erp.erp_documento;
+truncate sispromc_erp.erp_ctadocumento;
+
+truncate sispromc_erp.erp_almacen;
+
+truncate sispromc_erp.erp_pago;
+truncate sispromc_erp.erp_operacion;
+truncate sispromc_erp.erp_aperturacierre;
+truncate sispromc_erp.erp_ctacorriente;
+
+truncate sispromc_erp.erp_empresa;
+truncate sispromc_erp.erp_local;
+truncate sispromc_erp.erp_sucursal;
+truncate sispromc_erp.erp_entidad;
+truncate sispromc_erp.erp_categoria;
+truncate sispromc_erp.erp_marca;
+truncate sispromc_erp.erp_unidad;
+truncate sispromc_erp.erp_articulo;
+
+truncate armacat_sisprom.communities;
+truncate armacat_sisprom.communityapp;
+truncate armacat_sisprom.communitypol_users;
+truncate armacat_sisprom.erp_grupo;
+truncate armacat_sisprom.erp_miembro;
+truncate armacat_sisprom.profiles;
+truncate armacat_sisprom.users;
+
+/* BORRAMOS DATA DE TABLAS */
+delete from sispromc_erp.erp_detkardex;
+delete from sispromc_erp.erp_kardex;
+delete from sispromc_erp.erp_detdocumento;
+delete from sispromc_erp.erp_documento;
+delete from sispromc_erp.erp_ctadocumento;
+
+delete from sispromc_erp.erp_almacen;
+
+delete from sispromc_erp.erp_pago;
+delete from sispromc_erp.erp_operacion;
+delete from sispromc_erp.erp_aperturacierre;
+delete from sispromc_erp.erp_ctacorriente;
+
+delete from sispromc_erp.erp_empresa;
+delete from sispromc_erp.erp_local;
+delete from sispromc_erp.erp_sucursal;
+delete from sispromc_erp.erp_entidad;
+delete from sispromc_erp.erp_categoria;
+delete from sispromc_erp.erp_marca;
+delete from sispromc_erp.erp_unidad;
+delete from sispromc_erp.erp_articulo;
+
+delete from armacat_sisprom.communities;
+delete from armacat_sisprom.communityapp;
+delete from armacat_sisprom.communitypol_users;
+delete from armacat_sisprom.erp_grupo;
+delete from armacat_sisprom.erp_miembro;
+delete from armacat_sisprom.profiles;
+delete from armacat_sisprom.users;
+
+
+/*
+ * REINICIAR ASISTENCIA
+ */
+delete from asi_repositorio;
+delete from asi_asistencia;
+
+select * from view_kardex
+
+select * from erp_seguridad where id_communityapp=37;
+select * from erp_grupo where id_communityapp=37;
+select * from erp_permiso where id_grupo in (select id_grupo from erp_grupo where id_communityapp=37);
+select * from mymc911_sisprom.users where username='armar@hotmail.com';
+
+update mymc911_sisprom.users set id_enti=(select id_enti from erp_entidad where mail='armar@hotmail.com')
+select * from mymc911_sisprom.users where username='armar@hotmail.com';
+select * from erp_entidad where mail='armar@hotmail.com';
+
+
+error al importar excel cliente
